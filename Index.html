@@ -1,0 +1,1924 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MondeCom</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f0f2f5;
+  color:#222;
+  transition:.2s;
+}
+
+body.dark{
+  background:#18191a;
+  color:#eee;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+input{
+  outline:none;
+}
+
+/* =========================
+   BARRE DU HAUT
+========================= */
+
+.top{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:#fff;
+  border-bottom:1px solid #ddd;
+}
+
+.dark .top{
+  background:#242526;
+  border-color:#444;
+}
+
+.header{
+  height:62px;
+  display:flex;
+  align-items:center;
+  padding:0 10px;
+  gap:10px;
+}
+
+.logo{
+  color:#1877f2;
+  font-size:25px;
+  font-weight:bold;
+}
+
+.search{
+  flex:1;
+  max-width:330px;
+}
+
+.search input{
+  width:100%;
+  padding:11px 16px;
+  border:0;
+  border-radius:22px;
+  background:#f0f2f5;
+}
+
+.dark .search input{
+  background:#3a3b3c;
+  color:#fff;
+}
+
+.top-icons{
+  margin-left:auto;
+  display:flex;
+  gap:5px;
+}
+
+.icon-btn{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#e4e6eb;
+  font-size:18px;
+  position:relative;
+}
+
+.dark .icon-btn{
+  background:#3a3b3c;
+  color:#fff;
+}
+
+.badge{
+  position:absolute;
+  top:-2px;
+  right:-2px;
+  min-width:17px;
+  height:17px;
+  padding:0 4px;
+  border-radius:20px;
+  background:#e41e3f;
+  color:white;
+  font-size:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* =========================
+   CONTENU
+========================= */
+
+.container{
+  max-width:850px;
+  margin:auto;
+  padding:18px 12px 50px;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.card{
+  background:#fff;
+  border-radius:10px;
+  padding:15px;
+  margin-bottom:15px;
+  box-shadow:0 1px 3px #0002;
+}
+
+.dark .card{
+  background:#242526;
+}
+
+/* =========================
+   PROFIL
+========================= */
+
+.profile-mini,
+.post-head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.avatar{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:#1877f2;
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-weight:bold;
+  flex-shrink:0;
+}
+
+/* =========================
+   PUBLICATION
+========================= */
+
+.post-input{
+  width:100%;
+  margin-top:12px;
+  padding:13px 16px;
+  border:0;
+  border-radius:22px;
+  background:#f0f2f5;
+}
+
+.dark .post-input{
+  background:#3a3b3c;
+  color:#fff;
+}
+
+.actions{
+  display:flex;
+  gap:5px;
+  margin-top:12px;
+}
+
+.action{
+  flex:1;
+  padding:10px;
+  background:transparent;
+  border-radius:7px;
+}
+
+.action:hover{
+  background:#f0f2f5;
+}
+
+.dark .action:hover{
+  background:#3a3b3c;
+}
+
+.post-menu{
+  margin-left:auto;
+  background:none;
+  font-size:22px;
+  color:inherit;
+}
+
+.post-text{
+  margin:15px 0;
+  line-height:1.5;
+}
+
+.reactions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:10px;
+}
+
+.reaction{
+  padding:8px 12px;
+  border-radius:20px;
+  background:#f0f2f5;
+}
+
+.dark .reaction{
+  background:#3a3b3c;
+  color:#fff;
+}
+
+.reaction.liked{
+  color:#1877f2;
+  font-weight:bold;
+}
+
+/* =========================
+   COMMENTAIRES
+========================= */
+
+.comment-box{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+}
+
+.comment-box input{
+  flex:1;
+  padding:11px 14px;
+  border:0;
+  border-radius:20px;
+  background:#f0f2f5;
+}
+
+.dark .comment-box input{
+  background:#3a3b3c;
+  color:#fff;
+}
+
+.comment-item{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  margin-top:12px;
+}
+
+.comment-content{
+  flex:1;
+}
+
+.comment-bubble{
+  display:inline-block;
+  max-width:100%;
+  padding:9px 12px;
+  border-radius:16px;
+  background:#f0f2f5;
+  line-height:1.35;
+}
+
+.dark .comment-bubble{
+  background:#3a3b3c;
+}
+
+.comment-visibility{
+  color:#65676b;
+  font-size:11px;
+  margin:4px 0 2px 8px;
+}
+
+.comment-actions{
+  display:flex;
+  gap:12px;
+  margin-left:8px;
+}
+
+.comment-action{
+  background:none;
+  color:#65676b;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.comment-action.liked{
+  color:#1877f2;
+}
+
+.reply-box{
+  display:flex;
+  gap:6px;
+  margin:7px 0 0 8px;
+}
+
+.reply-box input{
+  flex:1;
+  padding:8px 12px;
+  border:0;
+  border-radius:18px;
+  background:#f0f2f5;
+}
+
+.dark .reply-box input{
+  background:#3a3b3c;
+  color:#fff;
+}
+
+.reply{
+  margin:7px 0 0 15px;
+}
+
+/* =========================
+   AMIS
+========================= */
+
+.friend{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid #ddd;
+}
+
+.dark .friend{
+  border-color:#444;
+}
+
+.friend:last-child{
+  border-bottom:0;
+}
+
+.friend button{
+  margin-left:auto;
+  padding:9px 14px;
+  border-radius:7px;
+  background:#1877f2;
+  color:white;
+}
+
+/* =========================
+   MESSAGES
+========================= */
+
+.chat{
+  height:500px;
+  display:flex;
+  flex-direction:column;
+  padding:0;
+  overflow:hidden;
+}
+
+.chat-head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  border-bottom:1px solid #ddd;
+}
+
+.dark .chat-head{
+  border-color:#444;
+}
+
+.chat-head button{
+  background:none;
+  color:inherit;
+  font-size:20px;
+}
+
+.chat-body{
+  flex:1;
+  overflow-y:auto;
+  padding:15px;
+}
+
+.message{
+  max-width:75%;
+  padding:10px 14px;
+  border-radius:18px;
+  margin:7px 0;
+}
+
+.received{
+  background:#e4e6eb;
+}
+
+.dark .received{
+  background:#3a3b3c;
+}
+
+.sent{
+  margin-left:auto;
+  background:#1877f2;
+  color:white;
+}
+
+.chat-input{
+  display:flex;
+  gap:7px;
+  padding:10px;
+}
+
+.chat-input input{
+  flex:1;
+  padding:11px 15px;
+  border-radius:22px;
+  border:1px solid #ddd;
+}
+
+.chat-input button{
+  width:43px;
+  border-radius:50%;
+  background:#1877f2;
+  color:#fff;
+}
+
+/* =========================
+   PARAMÈTRES
+========================= */
+
+.setting-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:15px 5px;
+  border-bottom:1px solid #ddd;
+}
+
+.dark .setting-row{
+  border-color:#444;
+}
+
+.setting-row button:not(.switch){
+  background:none;
+  color:inherit;
+  font-size:16px;
+}
+
+.switch{
+  width:48px;
+  height:26px;
+  border-radius:20px;
+  background:#aaa;
+  position:relative;
+}
+
+.switch span{
+  position:absolute;
+  width:21px;
+  height:21px;
+  border-radius:50%;
+  background:#fff;
+  top:2px;
+  left:3px;
+  transition:.2s;
+}
+
+.switch.on{
+  background:#1877f2;
+}
+
+.switch.on span{
+  left:24px;
+}
+
+/* =========================
+   MENU
+========================= */
+
+.menu-list{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.menu-item{
+  width:100%;
+  text-align:left;
+  padding:15px;
+  border-radius:8px;
+  background:transparent;
+  color:inherit;
+  font-size:16px;
+}
+
+.menu-item:hover{
+  background:#f0f2f5;
+}
+
+.dark .menu-item:hover{
+  background:#3a3b3c;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:2000;
+  background:#0008;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:90%;
+  max-width:430px;
+  background:#fff;
+  color:#222;
+  padding:20px;
+  border-radius:12px;
+}
+
+.dark .modal-box{
+  background:#242526;
+  color:#fff;
+}
+
+.modal-box h2{
+  margin-bottom:12px;
+}
+
+.modal-close{
+  float:right;
+  background:none;
+  font-size:22px;
+  color:inherit;
+}
+
+.modal-box .confirm{
+  padding:10px 16px;
+  margin-top:15px;
+  background:#1877f2;
+  color:white;
+  border-radius:7px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:700px){
+
+  .logo{
+    font-size:20px;
+  }
+
+  .search{
+    display:none;
+  }
+
+  .icon-btn{
+    width:37px;
+    height:37px;
+    font-size:16px;
+  }
+
+  .header{
+    gap:4px;
+  }
+
+  .top-icons{
+    gap:2px;
+  }
+
+  .action{
+    font-size:12px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     BARRE SUPÉRIEURE
+========================= -->
+
+<header class="top">
+
+  <div class="header">
+
+    <div class="logo">MondeCom</div>
+
+    <div class="search">
+      <input
+        id="globalSearch"
+        placeholder="Rechercher sur MondeCom..."
+        onkeydown="globalSearch(event)">
+    </div>
+
+    <div class="top-icons">
+
+      <button class="icon-btn"
+              onclick="showPage('home')"
+              title="Accueil">
+        🏠
+      </button>
+
+      <button class="icon-btn"
+              onclick="showPage('search')"
+              title="Recherche">
+        🔎
+      </button>
+
+      <button class="icon-btn"
+              onclick="showPage('friends')"
+              title="Amis">
+        👥
+        <span class="badge">3</span>
+      </button>
+
+      <button class="icon-btn"
+              onclick="showPage('messages')"
+              title="Messages">
+        💬
+        <span class="badge">2</span>
+      </button>
+
+      <button class="icon-btn"
+              onclick="showPage('notifications')"
+              title="Notifications">
+        🔔
+        <span class="badge">5</span>
+      </button>
+
+      <button class="icon-btn"
+              onclick="showPage('settings')"
+              title="Paramètres">
+        ⚙️
+      </button>
+
+      <button class="icon-btn"
+              onclick="showPage('more')"
+              title="Plus">
+        ☰
+      </button>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<main class="container">
+
+<!-- =========================
+     ACCUEIL
+========================= -->
+
+<section id="home" class="page active">
+
+  <div class="card">
+
+    <div class="profile-mini">
+      <div class="avatar">MT</div>
+      <strong>Monde Talent</strong>
+    </div>
+
+    <input
+      id="postInput"
+      class="post-input"
+      placeholder="Quoi de neuf aujourd'hui ?">
+
+    <div class="actions">
+
+      <button class="action"
+              onclick="publishPost()">
+        📝 Publier
+      </button>
+
+      <button class="action"
+              onclick="openPhoto()">
+        📷 Photo
+      </button>
+
+      <button class="action"
+              onclick="openVideo()">
+        🎥 Vidéo
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div id="posts">
+
+    <!-- PUBLICATION DE DÉPART -->
+
+    <article class="card">
+
+      <div class="post-head">
+
+        <div class="avatar">MT</div>
+
+        <div>
+          <strong>Monde Talent</strong><br>
+          <small>À l'instant · 🌍</small>
+        </div>
+
+        <button class="post-menu"
+                onclick="postMenu(this)">
+          ⋯
+        </button>
+
+      </div>
+
+      <p class="post-text">
+        Bienvenue sur MondeCom 🌍 !
+        Partagez vos idées, vos photos et échangez
+        avec vos amis.
+      </p>
+
+      <div class="reactions">
+
+        <button class="reaction"
+                onclick="likePost(this)">
+          👍 J’aime <span>0</span>
+        </button>
+
+        <button class="reaction"
+                onclick="lovePost(this)">
+          ❤️ J’adore <span>0</span>
+        </button>
+
+        <button class="reaction">
+          😂 Haha
+        </button>
+
+        <button class="reaction">
+          😮 Wouah
+        </button>
+
+      </div>
+
+      <div class="comment-box">
+
+        <input
+          placeholder="Écrire un commentaire..."
+          onkeydown="commentKey(event,this)">
+
+        <button class="reaction"
+                onclick="addComment(this)">
+          Envoyer
+        </button>
+
+      </div>
+
+      <div class="comments"></div>
+
+      <div class="actions">
+
+        <button class="action"
+                onclick="focusComment(this)">
+          💬 Commenter
+        </button>
+
+        <button class="action"
+                onclick="sharePost()">
+          ↗️ Partager
+        </button>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     RECHERCHE
+========================= -->
+
+<section id="search" class="page">
+
+  <div class="card">
+
+    <h2>🔎 Recherche</h2>
+
+    <input
+      id="searchInput"
+      class="post-input"
+      placeholder="Rechercher une personne..."
+      onkeyup="performSearch()">
+
+    <div id="searchResults"></div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     AMIS
+========================= -->
+
+<section id="friends" class="page">
+
+  <div class="card">
+
+    <h2>👥 Amis</h2>
+
+    <div class="friend">
+
+      <div class="avatar">JD</div>
+
+      <strong>Jean Didier</strong>
+
+      <button onclick="friendAction(this)">
+        Ajouter
+      </button>
+
+    </div>
+
+    <div class="friend">
+
+      <div class="avatar">MK</div>
+
+      <strong>Marie K.</strong>
+
+      <button onclick="friendAction(this)">
+        Ajouter
+      </button>
+
+    </div>
+
+    <div class="friend">
+
+      <div class="avatar">PA</div>
+
+      <strong>Patrick A.</strong>
+
+      <button onclick="friendAction(this)">
+        Ajouter
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     MESSAGES
+========================= -->
+
+<section id="messages" class="page">
+
+  <div class="card">
+
+    <h2>💬 Messages privés</h2>
+
+    <div class="friend"
+         onclick="openChat('Jean Didier')">
+
+      <div class="avatar">JD</div>
+
+      <strong>Jean Didier</strong>
+
+      <span style="margin-left:auto">›</span>
+
+    </div>
+
+    <div class="friend"
+         onclick="openChat('Marie K.')">
+
+      <div class="avatar">MK</div>
+
+      <strong>Marie K.</strong>
+
+      <span style="margin-left:auto">›</span>
+
+    </div>
+
+  </div>
+
+  <div id="chatArea"></div>
+
+</section>
+
+
+<!-- =========================
+     NOTIFICATIONS
+========================= -->
+
+<section id="notifications" class="page">
+
+  <div class="card">
+
+    <h2>🔔 Notifications</h2>
+
+    <div class="menu-list">
+
+      <button class="menu-item"
+              onclick="notificationAction('Jean Didier aime votre publication')">
+        👍 Jean Didier aime votre publication
+      </button>
+
+      <button class="menu-item"
+              onclick="notificationAction('Marie K. vous a envoyé une demande d’amitié')">
+        👥 Marie K. vous a envoyé une demande d’amitié
+      </button>
+
+      <button class="menu-item"
+              onclick="notificationAction('Vous avez reçu un nouveau message')">
+        💬 Vous avez reçu un nouveau message
+      </button>
+
+      <button class="menu-item"
+              onclick="notificationAction('Votre publication a reçu un commentaire')">
+        💬 Votre publication a reçu un commentaire
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     PARAMÈTRES
+========================= -->
+
+<section id="settings" class="page">
+
+  <div class="card">
+
+    <h2>⚙️ Paramètres</h2>
+
+    <div class="setting-row">
+
+      <span>🌙 Mode sombre</span>
+
+      <button
+        id="darkSwitch"
+        class="switch"
+        onclick="toggleDark()">
+
+        <span></span>
+
+      </button>
+
+    </div>
+
+    <div class="setting-row">
+
+      <span>🔔 Notifications</span>
+
+      <button
+        class="switch on"
+        onclick="toggleSwitch(this)">
+
+        <span></span>
+
+      </button>
+
+    </div>
+
+    <div class="setting-row">
+
+      <span>🔒 Confidentialité</span>
+
+      <button onclick="privacySettings()">›</button>
+
+    </div>
+
+    <div class="setting-row">
+
+      <span>🛡️ Sécurité</span>
+
+      <button onclick="securitySettings()">›</button>
+
+    </div>
+
+    <div class="setting-row">
+
+      <span>🌐 Langue</span>
+
+      <button onclick="languageSettings()">
+        Français ›
+      </button>
+
+    </div>
+
+    <div class="setting-row">
+
+      <span>👤 Modifier mon profil</span>
+
+      <button onclick="editProfile()">›</button>
+
+    </div>
+
+    <div class="setting-row">
+
+      <span>🚪 Déconnexion</span>
+
+      <button onclick="logout()">›</button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     PLUS
+========================= -->
+
+<section id="more" class="page">
+
+  <div class="card">
+
+    <h2>☰ Plus</h2>
+
+    <div class="menu-list">
+
+      <button class="menu-item"
+              onclick="showPage('home')">
+        🏠 Accueil
+      </button>
+
+      <button class="menu-item"
+              onclick="showPage('friends')">
+        👥 Mes amis
+      </button>
+
+      <button class="menu-item"
+              onclick="showPage('messages')">
+        💬 Messages privés
+      </button>
+
+      <button class="menu-item"
+              onclick="showPage('notifications')">
+        🔔 Notifications
+      </button>
+
+      <button class="menu-item"
+              onclick="showPage('settings')">
+        ⚙️ Paramètres
+      </button>
+
+      <button class="menu-item"
+              onclick="aboutMondeCom()">
+        ℹ️ À propos de MondeCom
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================
+     MODAL
+========================= -->
+
+<div id="modal" class="modal">
+
+  <div class="modal-box">
+
+    <button class="modal-close"
+            onclick="closeModal()">
+      ×
+    </button>
+
+    <h2 id="modalTitle">
+      MondeCom
+    </h2>
+
+    <p id="modalText"></p>
+
+    <button class="confirm"
+            onclick="closeModal()">
+      Fermer
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function showPage(page){
+
+  document.querySelectorAll('.page')
+    .forEach(p => p.classList.remove('active'));
+
+  const target=document.getElementById(page);
+
+  if(target){
+    target.classList.add('active');
+    window.scrollTo({
+      top:0,
+      behavior:'smooth'
+    });
+  }
+}
+
+
+/* =========================
+   PUBLICATION
+========================= */
+
+function publishPost(){
+
+  const input=document.getElementById('postInput');
+  const text=input.value.trim();
+
+  if(!text){
+
+    openModal(
+      'Publication',
+      'Écrivez quelque chose avant de publier.'
+    );
+
+    return;
+  }
+
+  const post=document.createElement('article');
+
+  post.className='card';
+
+  post.innerHTML=`
+
+    <div class="post-head">
+
+      <div class="avatar">MT</div>
+
+      <div>
+        <strong>Monde Talent</strong><br>
+        <small>À l'instant · 🌍</small>
+      </div>
+
+      <button class="post-menu"
+              onclick="postMenu(this)">
+        ⋯
+      </button>
+
+    </div>
+
+    <p class="post-text">
+      ${escapeHTML(text)}
+    </p>
+
+    <div class="reactions">
+
+      <button class="reaction"
+              onclick="likePost(this)">
+        👍 J’aime <span>0</span>
+      </button>
+
+      <button class="reaction"
+              onclick="lovePost(this)">
+        ❤️ J’adore <span>0</span>
+      </button>
+
+      <button class="reaction">
+        😂 Haha
+      </button>
+
+      <button class="reaction">
+        😮 Wouah
+      </button>
+
+    </div>
+
+    <div class="comment-box">
+
+      <input
+        placeholder="Écrire un commentaire..."
+        onkeydown="commentKey(event,this)">
+
+      <button class="reaction"
+              onclick="addComment(this)">
+        Envoyer
+      </button>
+
+    </div>
+
+    <div class="comments"></div>
+
+    <div class="actions">
+
+      <button class="action"
+              onclick="focusComment(this)">
+        💬 Commenter
+      </button>
+
+      <button class="action"
+              onclick="sharePost()">
+        ↗️ Partager
+      </button>
+
+    </div>
+  `;
+
+  document.getElementById('posts')
+    .prepend(post);
+
+  input.value='';
+}
+
+
+/* =========================
+   LIKES PUBLICATION
+========================= */
+
+function likePost(button){
+
+  const count=button.querySelector('span');
+
+  let number=parseInt(count.innerText);
+
+  if(button.classList.contains('liked')){
+
+    number--;
+    button.classList.remove('liked');
+
+  }else{
+
+    number++;
+    button.classList.add('liked');
+
+  }
+
+  count.innerText=number;
+}
+
+
+function lovePost(button){
+
+  const count=button.querySelector('span');
+
+  let number=parseInt(count.innerText);
+
+  if(button.classList.contains('liked')){
+
+    number--;
+    button.classList.remove('liked');
+
+  }else{
+
+    number++;
+    button.classList.add('liked');
+
+  }
+
+  count.innerText=number;
+}
+
+
+/* =========================
+   COMMENTAIRES PUBLICS
+========================= */
+
+function addComment(button){
+
+  const box=button.parentElement.querySelector('input');
+
+  const value=box.value.trim();
+
+  if(!value)return;
+
+  const card=button.closest('.card');
+
+  const comments=card.querySelector('.comments');
+
+  const comment=document.createElement('div');
+
+  comment.className='comment-item';
+
+  comment.innerHTML=`
+
+    <div class="avatar"
+         style="width:34px;height:34px;font-size:12px;">
+      MT
+    </div>
+
+    <div class="comment-content">
+
+      <div class="comment-bubble">
+
+        <strong>Monde Talent</strong><br>
+
+        ${escapeHTML(value)}
+
+      </div>
+
+      <div class="comment-visibility">
+        🌍 Visible par tout le monde
+      </div>
+
+      <div class="comment-actions">
+
+        <button class="comment-action"
+                onclick="likeComment(this)">
+          👍 J’aime <span>0</span>
+        </button>
+
+        <button class="comment-action"
+                onclick="showReply(this)">
+          💬 Répondre
+        </button>
+
+      </div>
+
+      <div class="reply-box"
+           style="display:none">
+
+        <input
+          placeholder="Répondre au commentaire..."
+          onkeydown="replyKey(event,this)">
+
+        <button class="reaction"
+                onclick="sendReply(this)">
+          Envoyer
+        </button>
+
+      </div>
+
+      <div class="replies"></div>
+
+    </div>
+  `;
+
+  comments.appendChild(comment);
+
+  box.value='';
+
+  addNotification(
+    '💬 Votre commentaire est visible par tout le monde.'
+  );
+}
+
+
+/* =========================
+   LIKE COMMENTAIRE
+========================= */
+
+function likeComment(button){
+
+  const count=button.querySelector('span');
+
+  let number=parseInt(count.innerText);
+
+  if(button.classList.contains('liked')){
+
+    number--;
+
+    button.classList.remove('liked');
+
+  }else{
+
+    number++;
+
+    button.classList.add('liked');
+
+    addNotification(
+      '👍 Quelqu’un aime votre commentaire.'
+    );
+  }
+
+  count.innerText=number;
+}
+
+
+/* =========================
+   RÉPONSES
+========================= */
+
+function showReply(button){
+
+  const comment=button.closest('.comment-item');
+
+  const box=comment.querySelector('.reply-box');
+
+  box.style.display =
+    box.style.display==='none'
+    ? 'flex'
+    : 'none';
+
+  if(box.style.display==='flex'){
+    box.querySelector('input').focus();
+  }
+}
+
+
+function replyKey(event,input){
+
+  if(event.key==='Enter'){
+
+    const button=
+      input.parentElement.querySelector('button');
+
+    sendReply(button);
+  }
+}
+
+
+function sendReply(button){
+
+  const box=button.parentElement.querySelector('input');
+
+  const value=box.value.trim();
+
+  if(!value)return;
+
+  const comment=button.closest('.comment-item');
+
+  const replies=comment.querySelector('.replies');
+
+  const reply=document.createElement('div');
+
+  reply.className='reply';
+
+  reply.innerHTML=`
+
+    <div class="comment-item">
+
+      <div class="avatar"
+           style="width:30px;height:30px;font-size:11px;">
+        MT
+      </div>
+
+      <div>
+
+        <div class="comment-bubble">
+
+          <strong>Monde Talent</strong><br>
+
+          ${escapeHTML(value)}
+
+        </div>
+
+        <div class="comment-visibility">
+          🌍 Visible par tout le monde
+        </div>
+
+        <button class="comment-action"
+                onclick="likeComment(this)">
+          👍 J’aime <span>0</span>
+        </button>
+
+      </div>
+
+    </div>
+  `;
+
+  replies.appendChild(reply);
+
+  box.value='';
+
+  addNotification(
+    '💬 Une réponse a été ajoutée à votre commentaire.'
+  );
+}
+
+
+/* =========================
+   COMMENTAIRE AVEC ENTER
+========================= */
+
+function commentKey(event,input){
+
+  if(event.key==='Enter'){
+
+    const button=
+      input.parentElement.querySelector('button');
+
+    addComment(button);
+  }
+}
+
+
+/* =========================
+   FOCUS COMMENTAIRE
+========================= */
+
+function focusComment(button){
+
+  const card=button.closest('.card');
+
+  const input=
+    card.querySelector('.comment-box input');
+
+  if(input){
+    input.focus();
+  }
+}
+
+
+/* =========================
+   PARTAGE
+========================= */
+
+function sharePost(){
+
+  if(navigator.share){
+
+    navigator.share({
+      title:'MondeCom',
+      text:'Découvrez cette publication sur MondeCom.'
+    });
+
+  }else{
+
+    openModal(
+      'Partager',
+      'Cette publication peut être partagée avec vos amis sur MondeCom.'
+    );
+  }
+}
+
+
+/* =========================
+   MENU PUBLICATION
+========================= */
+
+function postMenu(){
+
+  openModal(
+    'Options',
+    'Modifier • Enregistrer • Masquer • Supprimer'
+  );
+}
+
+
+/* =========================
+   AMIS
+========================= */
+
+function friendAction(button){
+
+  button.innerText='Demande envoyée';
+
+  button.disabled=true;
+
+  button.style.background='#42b72a';
+
+  addNotification(
+    '👥 Votre demande d’amitié a été envoyée.'
+  );
+}
+
+
+/* =========================
+   MESSAGES PRIVÉS
+========================= */
+
+function openChat(name){
+
+  showPage('messages');
+
+  const area=document.getElementById('chatArea');
+
+  area.innerHTML=`
+
+    <div class="card chat">
+
+      <div class="chat-head">
+
+        <button onclick="closeChat()">
+          ←
+        </button>
+
+        <div class="avatar">
+          ${name.charAt(0)}
+        </div>
+
+        <strong>${name}</strong>
+
+      </div>
+
+      <div class="chat-body"
+           id="chatBody">
+
+        <div class="message received">
+          Salut 👋 !
+        </div>
+
+        <div class="message received">
+          Bienvenue sur MondeCom.
+        </div>
+
+      </div>
+
+      <div class="chat-input">
+
+        <input
+          id="messageInput"
+          placeholder="Écrire un message..."
+          onkeydown="messageKey(event)">
+
+        <button onclick="sendMessage()">
+          ➤
+        </button>
+
+      </div>
+
+    </div>
+  `;
+
+  document.getElementById('messageInput').focus();
+}
+
+
+function closeChat(){
+
+  document.getElementById('chatArea')
+    .innerHTML='';
+}
+
+
+function sendMessage(){
+
+  const input=document.getElementById('messageInput');
+
+  if(!input || !input.value.trim())return;
+
+  const body=document.getElementById('chatBody');
+
+  const message=document.createElement('div');
+
+  message.className='message sent';
+
+  message.innerText=input.value;
+
+  body.appendChild(message);
+
+  input.value='';
+
+  body.scrollTop=body.scrollHeight;
+}
+
+
+function messageKey(event){
+
+  if(event.key==='Enter'){
+    sendMessage();
+  }
+}
+
+
+/* =========================
+   RECHERCHE
+========================= */
+
+function globalSearch(event){
+
+  if(event.key==='Enter'){
+
+    const value=
+      document.getElementById('globalSearch').value;
+
+    showPage('search');
+
+    document.getElementById('searchInput')
+      .value=value;
+
+    performSearch();
+  }
+}
+
+
+function performSearch(){
+
+  const value=
+    document.getElementById('searchInput')
+      .value
+      .toLowerCase()
+      .trim();
+
+  const results=
+    document.getElementById('searchResults');
+
+  if(!value){
+
+    results.innerHTML='';
+
+    return;
+  }
+
+  results.innerHTML=`
+
+    <div class="friend">
+
+      <div class="avatar">JD</div>
+
+      <strong>Jean Didier</strong>
+
+      <button
+        onclick="openChat('Jean Didier')">
+        Message
+      </button>
+
+    </div>
+
+    <div class="friend">
+
+      <div class="avatar">MK</div>
+
+      <strong>Marie K.</strong>
+
+      <button
+        onclick="openChat('Marie K.')">
+        Message
+      </button>
+
+    </div>
+  `;
+}
+
+
+/* =========================
+   NOTIFICATIONS
+========================= */
+
+function addNotification(text){
+
+  console.log('Notification:',text);
+}
+
+
+function notificationAction(text){
+
+  openModal(
+    'Notification',
+    text
+  );
+}
+
+
+/* =========================
+   PARAMÈTRES
+========================= */
+
+function toggleDark(){
+
+  document.body.classList.toggle('dark');
+
+  document.getElementById('darkSwitch')
+    .classList.toggle('on');
+}
+
+
+function toggleSwitch(button){
+
+  button.classList.toggle('on');
+}
+
+
+function privacySettings(){
+
+  openModal(
+    'Confidentialité',
+    'Gérez qui peut voir votre profil, vos publications et vos commentaires.'
+  );
+}
+
+
+function securitySettings(){
+
+  openModal(
+    'Sécurité',
+    'Gérez votre mot de passe et la sécurité de votre compte.'
+  );
+}
+
+
+function languageSettings(){
+
+  openModal(
+    'Langue',
+    'Français est actuellement sélectionné.'
+  );
+}
+
+
+function editProfile(){
+
+  openModal(
+    'Modifier le profil',
+    'La modification de votre profil sera disponible ici.'
+  );
+}
+
+
+function logout(){
+
+  openModal(
+    'Déconnexion',
+    'Vous êtes sur le point de vous déconnecter de MondeCom.'
+  );
+}
+
+
+/* =========================
+   PLUS
+========================= */
+
+function aboutMondeCom(){
+
+  openModal(
+    'MondeCom',
+    'MondeCom est votre réseau social pour communiquer, partager et rester connecté.'
+  );
+}
+
+
+/* =========================
+   PHOTO / VIDÉO
+========================= */
+
+function openPhoto(){
+
+  openModal(
+    'Photo',
+    'La sélection et la publication de photos seront connectées au stockage de votre appareil.'
+  );
+}
+
+
+function openVideo(){
+
+  openModal(
+    'Vidéo',
+    'La sélection et la publication de vidéos seront connectées au stockage de votre appareil.'
+  );
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+function openModal(title,text){
+
+  document.getElementById('modalTitle')
+    .innerText=title;
+
+  document.getElementById('modalText')
+    .innerText=text;
+
+  document.getElementById('modal')
+    .classList.add('show');
+}
+
+
+function closeModal(){
+
+  document.getElementById('modal')
+    .classList.remove('show');
+}
+
+
+/* =========================
+   SÉCURITÉ TEXTE
+========================= */
+
+function escapeHTML(text){
+
+  const div=document.createElement('div');
+
+  div.innerText=text;
+
+  return div.innerHTML;
+}
+
+</script>
+
+</body>
+</html>
